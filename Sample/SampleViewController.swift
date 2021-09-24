@@ -68,6 +68,7 @@ private extension SampleViewController {
     enum RowType: Int, CaseIterable {
         case basic
         case fullScreen
+        case tableView
         case alert
         case transientAlert
         case userGroups
@@ -79,6 +80,7 @@ private extension SampleViewController {
             switch self {
             case .basic: return Basic()
             case .fullScreen: return FullScreen()
+            case .tableView: return TableView()
             case .alert: return Alert()
             case .transientAlert: return TransientAlert()
             case .userGroups: return UserGroup()
@@ -95,6 +97,11 @@ private extension SampleViewController {
         struct FullScreen: RowPresentable {
             let string: String = "Full Screen"
             let rowVC: PanModalPresentable.LayoutType = FullScreenNavController()
+        }
+      
+        struct TableView: RowPresentable {
+            let string: String = "Table View"
+            let rowVC: PanModalPresentable.LayoutType = TableViewController()
         }
 
         struct Alert: RowPresentable {
