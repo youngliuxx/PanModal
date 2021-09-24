@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 class TableViewController: UITableViewController, PanModalPresentable {
-  
+
     private let members = (0..<100).map { "Item \($0)" }
-  
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,8 +28,6 @@ class TableViewController: UITableViewController, PanModalPresentable {
         tableView.backgroundColor = #colorLiteral(red: 0.1019607843, green: 0.1137254902, blue: 0.1294117647, alpha: 1)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
-  
-  
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return members.count
@@ -47,9 +45,9 @@ class TableViewController: UITableViewController, PanModalPresentable {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
-  
+
     var panScrollable: UIScrollView? {
         return tableView
     }
-  
+
 }
