@@ -179,6 +179,13 @@ public protocol PanModalPresentable: AnyObject {
      Default value is false.
     */
     var shouldDismissWhenLongForm: Bool { get }
+  
+    /**
+     A flag to determine if the transition should trigger the parent
+     view controller lifecycle.
+     Default value is false.
+     */
+    var shouldUseAppearanceTransitions: Bool { get }
 
     /**
      Asks the delegate if the pan modal should respond to the pan modal gesture recognizer.

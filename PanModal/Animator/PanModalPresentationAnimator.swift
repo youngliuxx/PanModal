@@ -68,8 +68,36 @@ public class PanModalPresentationAnimator: NSObject {
             let toVC = transitionContext.viewController(forKey: .to),
             let fromVC = transitionContext.viewController(forKey: .from)
             else { return }
+      
+        let presentable: PanModalPresentable.LayoutType? = panModalLayoutType(from: transitionContext)
+      
+        if presentable?.shouldUseAppearanceTransitions == true {
+          
+            // Presents the view in shortForm position, initially
+            let yPos: CGFloat = presentable?.shortFormYPos ?? 0.0
 
-        let presentable = panModalLayoutType(from: transitionContext)
+            // Use panView as presentingView if it already exists within the containerView
+            let panView: UIView = transitionContext.containerView.panContainerView ?? toVC.view
+
+            // Move presented view offscreen (from the bottom)
+            panView.frame = transitionContext.finalFrame(for: toVC)
+            panView.frame.origin.y = transitionContext.containerView.frame.height
+
+            // Haptic feedback
+            if presentable?.isHapticFeedbackEnabled == true {
+                feedbackGenerator?.selectionChanged()
+            }
+
+            PanModalAnimator.animate({
+                panView.frame.origin.y = yPos
+            }, config: presentable) { [weak self] didComplete in
+                // Calls viewDidAppear and viewDidDisappear
+                transitionContext.completeTransition(didComplete)
+                self?.feedbackGenerator = nil
+            }
+            
+            return
+        }
 
         // Calls viewWillAppear and viewWillDisappear
         fromVC.beginAppearanceTransition(false, animated: true)

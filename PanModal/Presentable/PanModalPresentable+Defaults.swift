@@ -100,6 +100,10 @@ public extension PanModalPresentable where Self: UIViewController {
     var shouldDismissWhenLongForm: Bool {
         false
     }
+  
+    var shouldUseAppearanceTransitions: Bool {
+      false
+    }
 
     func shouldRespond(to panModalGestureRecognizer: UIPanGestureRecognizer) -> Bool {
         true
