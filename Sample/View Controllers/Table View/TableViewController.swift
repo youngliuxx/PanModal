@@ -57,5 +57,9 @@ class TableViewController: UITableViewController, PanModalPresentable {
     var shouldDismissWhenLongForm: Bool {
         true
     }
+  
+    var shouldUseAppearanceTransitions: Bool {
+        true
+    }
 
 }
