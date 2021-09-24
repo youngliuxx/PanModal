@@ -14,11 +14,11 @@ import UIKit
 public extension PanModalPresentable where Self: UIViewController {
 
     var topOffset: CGFloat {
-        return topLayoutOffset + 21.0
+        topLayoutOffset + 21.0
     }
 
     var shortFormHeight: PanModalHeight {
-        return longFormHeight
+        longFormHeight
     }
 
     var longFormHeight: PanModalHeight {
@@ -32,36 +32,36 @@ public extension PanModalPresentable where Self: UIViewController {
     }
 
     var cornerRadius: CGFloat {
-        return 8.0
+        8.0
     }
 
     var springDamping: CGFloat {
-        return 0.8
+        0.8
     }
 
     var transitionDuration: Double {
-        return PanModalAnimator.Constants.defaultTransitionDuration
+        PanModalAnimator.Constants.defaultTransitionDuration
     }
 
     var transitionAnimationOptions: UIView.AnimationOptions {
-        return [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState]
+        [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState]
     }
 
     var panModalBackgroundColor: UIColor {
-        return UIColor.black.withAlphaComponent(0.7)
+        UIColor.black.withAlphaComponent(0.7)
     }
 
     var dragIndicatorBackgroundColor: UIColor {
-        return UIColor.lightGray
+        UIColor.lightGray
     }
 
     var scrollIndicatorInsets: UIEdgeInsets {
-        let top = shouldRoundTopCorners ? cornerRadius : 0
-        return UIEdgeInsets(top: CGFloat(top), left: 0, bottom: bottomLayoutOffset, right: 0)
+        let top: CGFloat = shouldRoundTopCorners ? cornerRadius : 0.0
+        return UIEdgeInsets(top: top, left: 0, bottom: bottomLayoutOffset, right: 0)
     }
 
     var anchorModalToLongForm: Bool {
-        return true
+        true
     }
 
     var allowsExtendedPanScrolling: Bool {
@@ -74,31 +74,35 @@ public extension PanModalPresentable where Self: UIViewController {
     }
 
     var allowsDragToDismiss: Bool {
-        return true
+        true
     }
 
     var allowsTapToDismiss: Bool {
-        return true
+        true
     }
 
     var isUserInteractionEnabled: Bool {
-        return true
+        true
     }
 
     var isHapticFeedbackEnabled: Bool {
-        return true
+        true
     }
 
     var shouldRoundTopCorners: Bool {
-        return isPanModalPresented
+        isPanModalPresented
     }
 
     var showDragIndicator: Bool {
-        return shouldRoundTopCorners
+        shouldRoundTopCorners
+    }
+
+    var shouldDismissWhenLongForm: Bool {
+        false
     }
 
     func shouldRespond(to panModalGestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        return true
+        true
     }
 
     func willRespond(to panModalGestureRecognizer: UIPanGestureRecognizer) {
@@ -106,11 +110,11 @@ public extension PanModalPresentable where Self: UIViewController {
     }
 
     func shouldTransition(to state: PanModalPresentationController.PresentationState) -> Bool {
-        return true
+        true
     }
 
     func shouldPrioritize(panModalGestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        return false
+        false
     }
 
     func willTransition(to state: PanModalPresentationController.PresentationState) {

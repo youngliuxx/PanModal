@@ -530,8 +530,13 @@ private extension PanModalPresentationController {
                 if velocity.y < 0 {
                     transition(to: .longForm)
 
-                } else if (nearest(to: presentedView.frame.minY, inValues: [longFormYPosition, containerView.bounds.height]) == longFormYPosition
-                    && presentedView.frame.minY < shortFormYPosition) || presentable?.allowsDragToDismiss == false {
+                } else if
+                     (nearest(to: presentedView.frame.minY, inValues: [longFormYPosition, containerView.bounds.height]) == longFormYPosition
+                     && presentedView.frame.minY < shortFormYPosition) || presentable?.allowsDragToDismiss == false
+                     && presentable?.shouldDismissWhenLongForm == false {
+
+//                } else if (nearest(to: presentedView.frame.minY, inValues: [longFormYPosition, containerView.bounds.height]) == longFormYPosition
+//                    && presentedView.frame.minY < shortFormYPosition) || presentable?.allowsDragToDismiss == false {
                     transition(to: .shortForm)
 
                 } else {
