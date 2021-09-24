@@ -45,6 +45,11 @@ class TableViewController: UITableViewController, PanModalPresentable {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
+  
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        dismiss(animated: true)
+    }
 
     var panScrollable: UIScrollView? {
         tableView
@@ -60,6 +65,10 @@ class TableViewController: UITableViewController, PanModalPresentable {
   
     var shouldUseAppearanceTransitions: Bool {
         true
+    }
+  
+    func panModalWillDismiss(fromGestureRecognizer: Bool) {
+        print("panModalWillDismiss from gesture recognizer: \(fromGestureRecognizer)")
     }
 
 }

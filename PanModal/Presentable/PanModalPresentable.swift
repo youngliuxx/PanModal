@@ -239,13 +239,13 @@ public protocol PanModalPresentable: AnyObject {
 
      Default value is an empty implementation.
      */
-    func panModalWillDismiss()
+    func panModalWillDismiss(fromGestureRecognizer: Bool)
 
     /**
      Notifies the delegate after the pan modal is dismissed.
 
      Default value is an empty implementation.
      */
-    func panModalDidDismiss()
+    func panModalDidDismiss(fromGestureRecognizer: Bool)
 }
 #endif

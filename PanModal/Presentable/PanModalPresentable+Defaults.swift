@@ -125,11 +125,11 @@ public extension PanModalPresentable where Self: UIViewController {
 
     }
 
-    func panModalWillDismiss() {
+    func panModalWillDismiss(fromGestureRecognizer: Bool) {
 
     }
 
-    func panModalDidDismiss() {
+    func panModalDidDismiss(fromGestureRecognizer: Bool) {
 
     }
 }
