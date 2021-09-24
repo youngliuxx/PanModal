@@ -47,7 +47,15 @@ class TableViewController: UITableViewController, PanModalPresentable {
     }
 
     var panScrollable: UIScrollView? {
-        return tableView
+        tableView
+    }
+  
+    var shortFormHeight: PanModalHeight {
+        .maxHeight
+    }
+  
+    var shouldDismissWhenLongForm: Bool {
+        true
     }
 
 }
