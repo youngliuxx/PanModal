@@ -88,7 +88,7 @@ open class PanModalPresentationController: UIPresentationController {
      Determine anchored Y postion based on the `anchorModalToLongForm` flag
      */
     private var anchoredYPosition: CGFloat {
-        let defaultTopOffset = presentable?.topOffset ?? 0
+        let defaultTopOffset: CGFloat = presentable?.topOffset ?? 0
         return anchorModalToLongForm ? longFormYPosition : defaultTopOffset
     }
 
@@ -96,7 +96,7 @@ open class PanModalPresentationController: UIPresentationController {
      Configuration object for PanModalPresentationController
      */
     private var presentable: PanModalPresentable? {
-        return presentedViewController as? PanModalPresentable
+        presentedViewController as? PanModalPresentable
     }
 
     // MARK: - Views
@@ -284,7 +284,7 @@ public extension PanModalPresentationController {
      */
     func performUpdates(_ updates: () -> Void) {
 
-        guard let scrollView = presentable?.panScrollable
+        guard let scrollView: UIScrollView = presentable?.panScrollable
             else { return }
 
         // Pause scroll observer
@@ -581,7 +581,7 @@ private extension PanModalPresentationController {
     func respond(to panGestureRecognizer: UIPanGestureRecognizer) {
         presentable?.willRespond(to: panGestureRecognizer)
 
-        var yDisplacement = panGestureRecognizer.translation(in: presentedView).y
+        var yDisplacement: CGFloat = panGestureRecognizer.translation(in: presentedView).y
 
         /**
          If the presentedView is not anchored to long form, reduce the rate of movement
@@ -621,8 +621,8 @@ private extension PanModalPresentationController {
 
         guard
             isPresentedViewAnchored,
-            let scrollView = presentable?.panScrollable,
-            scrollView.contentOffset.y > 0
+            let scrollView: UIScrollView = presentable?.panScrollable,
+            scrollView.contentOffset.y > -scrollView.contentInset.top
             else {
                 return false
         }
@@ -636,7 +636,7 @@ private extension PanModalPresentationController {
      embedded scrollView's panGestureRecognizer.
      */
     func shouldPrioritize(panGestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        return panGestureRecognizer.state == .began &&
+        panGestureRecognizer.state == .began &&
             presentable?.shouldPrioritize(panModalGestureRecognizer: panGestureRecognizer) == true
     }
 
@@ -644,7 +644,7 @@ private extension PanModalPresentationController {
      Check if the given velocity is within the sensitivity range
      */
     func isVelocityWithinSensitivityRange(_ velocity: CGFloat) -> Bool {
-        return (abs(velocity) - (1000 * (1 - Constants.snapMovementSensitivity))) > 0
+        (abs(velocity) - (1000 * (1 - Constants.snapMovementSensitivity))) > 0
     }
 
     func snap(toYPosition yPos: CGFloat) {
@@ -661,8 +661,9 @@ private extension PanModalPresentationController {
      */
     func adjust(toYPosition yPos: CGFloat, updateDragIndicatorView: Bool = false) {
         presentedView.frame.origin.y = max(yPos, anchoredYPosition)
+      
       if updateDragIndicatorView {
-        dragIndicatorView.frame.origin.y = presentedView.frame.origin.y - Constants.indicatorYOffset
+          dragIndicatorView.frame.origin.y = presentedView.frame.origin.y - Constants.indicatorYOffset
       }
         
         guard presentedView.frame.origin.y > shortFormYPosition else {
@@ -670,7 +671,7 @@ private extension PanModalPresentationController {
             return
         }
 
-        let yDisplacementFromShortForm = presentedView.frame.origin.y - shortFormYPosition
+        let yDisplacementFromShortForm: CGFloat = presentedView.frame.origin.y - shortFormYPosition
 
         /**
          Once presentedView is translated below shortForm, calculate yPos relative to bottom of screen
@@ -687,7 +688,7 @@ private extension PanModalPresentationController {
         - values: array of floats we would like to compare against
      */
     func nearest(to number: CGFloat, inValues values: [CGFloat]) -> CGFloat {
-        guard let nearestVal = values.min(by: { abs(number - $0) < abs(number - $1) })
+        guard let nearestVal: CGFloat = values.min(by: { abs(number - $0) < abs(number - $1) })
             else { return number }
         return nearestVal
     }
@@ -731,7 +732,7 @@ private extension PanModalPresentationController {
             !presentedViewController.isBeingPresented
             else { return }
 
-        if !isPresentedViewAnchored && scrollView.contentOffset.y > 0 {
+        if !isPresentedViewAnchored && scrollView.contentOffset.y > -scrollView.contentInset.top {
 
             /**
              Hold the scrollView in place if we're actively scrolling and not handling top bounce
@@ -740,7 +741,7 @@ private extension PanModalPresentationController {
 
         } else if scrollView.isScrolling || isPresentedViewAnimating {
 
-            if isPresentedViewAnchored {
+          if isPresentedViewAnchored {
                 /**
                  While we're scrolling upwards on the scrollView,
                  store the last content offset position
@@ -754,7 +755,8 @@ private extension PanModalPresentationController {
             }
 
         } else if presentedViewController.view.isKind(of: UIScrollView.self)
-            && !isPresentedViewAnimating && scrollView.contentOffset.y <= 0 {
+                    && !isPresentedViewAnimating
+                    && scrollView.contentOffset.y <= -scrollView.contentInset.top {
 
             /**
              In the case where we drag down quickly on the scroll view and let go,
@@ -770,16 +772,16 @@ private extension PanModalPresentationController {
      Halts the scroll of a given scroll view & anchors it at the `scrollViewYOffset`
      */
     func haltScrolling(_ scrollView: UIScrollView) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: scrollViewYOffset), animated: false)
+        scrollView.setContentOffset(CGPoint(x: 0, y: scrollViewYOffset - scrollView.contentInset.top), animated: false)
         scrollView.showsVerticalScrollIndicator = false
     }
-
+  
     /**
      As the user scrolls, track & save the scroll view y offset.
      This helps halt scrolling when we want to hold the scroll view in place.
      */
     func trackScrolling(_ scrollView: UIScrollView) {
-        scrollViewYOffset = max(scrollView.contentOffset.y, 0)
+        scrollViewYOffset = max(scrollView.contentOffset.y, 0.0)
         scrollView.showsVerticalScrollIndicator = true
     }
 
@@ -832,7 +834,7 @@ extension PanModalPresentationController: UIGestureRecognizerDelegate {
      Do not require any other gesture recognizers to fail
      */
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
+        false
     }
 
     /**
@@ -840,7 +842,7 @@ extension PanModalPresentationController: UIGestureRecognizerDelegate {
      is the pan scrollable view
      */
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return otherGestureRecognizer.view == presentable?.panScrollable
+        otherGestureRecognizer.view == presentable?.panScrollable
     }
 }
 
@@ -869,10 +871,10 @@ private extension PanModalPresentationController {
         view.layer.masksToBounds = true
 
         if #available(iOS 11.0, *) {
-          view.layer.maskedCorners = maskedCorners
-          if #available(iOS 13.0, *) {
-            view.layer.cornerCurve = .continuous
-          }
+            view.layer.maskedCorners = maskedCorners
+            if #available(iOS 13.0, *) {
+                view.layer.cornerCurve = .continuous
+            }
         }
 
     }

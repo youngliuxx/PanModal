@@ -17,7 +17,7 @@ public class DimmedView: UIView {
      Represents the possible states of the dimmed view.
      max, off or a percentage of dimAlpha.
      */
-    enum DimState {
+    public enum DimState {
         case max
         case off
         case percent(CGFloat)
@@ -28,14 +28,14 @@ public class DimmedView: UIView {
     /**
      The state of the dimmed view
      */
-    var dimState: DimState = .off {
+    var dimState: DimState = DimState.off {
         didSet {
             switch dimState {
-            case .max:
+            case DimState.max:
                 alpha = 1.0
-            case .off:
+            case DimState.off:
                 alpha = 0.0
-            case .percent(let percentage):
+            case DimState.percent(let percentage):
                 alpha = max(0.0, min(1.0, percentage))
             }
         }
@@ -50,7 +50,7 @@ public class DimmedView: UIView {
      Tap gesture recognizer
      */
     private lazy var tapGesture: UIGestureRecognizer = {
-        return UITapGestureRecognizer(target: self, action: #selector(didTapView))
+        UITapGestureRecognizer(target: self, action: #selector(didTapView))
     }()
 
     // MARK: - Initializers
