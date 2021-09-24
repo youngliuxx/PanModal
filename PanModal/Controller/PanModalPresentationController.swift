@@ -164,6 +164,12 @@ open class PanModalPresentationController: UIPresentationController {
         gesture.delegate = self
         return gesture
     }()
+  
+    /**
+     Flag used to detect when the PanModal is being either dismissed
+     by swiping it down or by calling the function `dismiss(_)`.
+     */
+  private var dismissFromGestureRecognizer: Bool = false
 
     // MARK: - Deinitializers
 
@@ -200,13 +206,14 @@ open class PanModalPresentationController: UIPresentationController {
     }
 
     override public func presentationTransitionDidEnd(_ completed: Bool) {
-        if completed { return }
-
+        if completed {
+            return
+        }
         backgroundView.removeFromSuperview()
     }
 
     override public func dismissalTransitionWillBegin() {
-        presentable?.panModalWillDismiss()
+        presentable?.panModalWillDismiss(fromGestureRecognizer: dismissFromGestureRecognizer)
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
             backgroundView.dimState = .off
@@ -225,9 +232,10 @@ open class PanModalPresentationController: UIPresentationController {
     }
 
     override public func dismissalTransitionDidEnd(_ completed: Bool) {
-        if !completed { return }
-
-        presentable?.panModalDidDismiss()
+        if completed {
+            return
+        }
+        presentable?.panModalDidDismiss(fromGestureRecognizer: dismissFromGestureRecognizer)
     }
 
     /**
@@ -534,12 +542,10 @@ private extension PanModalPresentationController {
                      (nearest(to: presentedView.frame.minY, inValues: [longFormYPosition, containerView.bounds.height]) == longFormYPosition
                      && presentedView.frame.minY < shortFormYPosition) || presentable?.allowsDragToDismiss == false
                      && presentable?.shouldDismissWhenLongForm == false {
-
-//                } else if (nearest(to: presentedView.frame.minY, inValues: [longFormYPosition, containerView.bounds.height]) == longFormYPosition
-//                    && presentedView.frame.minY < shortFormYPosition) || presentable?.allowsDragToDismiss == false {
                     transition(to: .shortForm)
 
                 } else {
+                    dismissFromGestureRecognizer = true
                     presentedViewController.dismiss(animated: true)
                 }
 
@@ -558,6 +564,7 @@ private extension PanModalPresentationController {
                     transition(to: .shortForm)
 
                 } else {
+                    dismissFromGestureRecognizer = true
                     presentedViewController.dismiss(animated: true)
                 }
             }
