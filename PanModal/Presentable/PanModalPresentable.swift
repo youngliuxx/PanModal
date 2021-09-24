@@ -172,7 +172,7 @@ public protocol PanModalPresentable: AnyObject {
      Default value is true.
      */
     var showDragIndicator: Bool { get }
-  
+
     /**
      A flag to determine if form dismiss from long form,
      it does not stop in short form height when value is true.

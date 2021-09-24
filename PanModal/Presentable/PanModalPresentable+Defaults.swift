@@ -96,7 +96,7 @@ public extension PanModalPresentable where Self: UIViewController {
     var showDragIndicator: Bool {
         shouldRoundTopCorners
     }
-  
+
     var shouldDismissWhenLongForm: Bool {
         false
     }
