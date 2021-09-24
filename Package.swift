@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .library(
             name: "PanModal",
-            targets: ["PanModal"]),
+            targets: ["PanModal"])
     ],
     dependencies: [],
     targets: [

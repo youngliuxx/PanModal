@@ -226,7 +226,7 @@ open class PanModalPresentationController: UIPresentationController {
 
     override public func dismissalTransitionDidEnd(_ completed: Bool) {
         if !completed { return }
-        
+
         presentable?.panModalDidDismiss()
     }
 
@@ -377,7 +377,7 @@ private extension PanModalPresentationController {
         let adjustedSize = CGSize(width: frame.size.width, height: frame.size.height - anchoredYPosition)
         let panFrame = panContainerView.frame
         panContainerView.frame.size = frame.size
-        
+
         if ![shortFormYPosition, longFormYPosition].contains(panFrame.origin.y) {
             // if the container is already in the correct position, no need to adjust positioning
             // (rotations & size changes cause positioning to be out of sync)
@@ -464,7 +464,7 @@ private extension PanModalPresentationController {
          */
         if #available(iOS 11.0, *) {
             scrollView.contentInset.bottom = presentingViewController.view.safeAreaInsets.bottom
-        }else {
+        } else {
             scrollView.contentInset.bottom = presentingViewController.bottomLayoutGuide.length
         }
 
@@ -665,11 +665,11 @@ private extension PanModalPresentationController {
      */
     func adjust(toYPosition yPos: CGFloat, updateDragIndicatorView: Bool = false) {
         presentedView.frame.origin.y = max(yPos, anchoredYPosition)
-      
+
       if updateDragIndicatorView {
           dragIndicatorView.frame.origin.y = presentedView.frame.origin.y - Constants.indicatorYOffset
       }
-        
+
         guard presentedView.frame.origin.y > shortFormYPosition else {
             backgroundView.dimState = .max
             return
@@ -779,7 +779,7 @@ private extension PanModalPresentationController {
         scrollView.setContentOffset(CGPoint(x: 0, y: scrollViewYOffset - scrollView.contentInset.top), animated: false)
         scrollView.showsVerticalScrollIndicator = false
     }
-  
+
     /**
      As the user scrolls, track & save the scroll view y offset.
      This helps halt scrolling when we want to hold the scroll view in place.
@@ -863,7 +863,7 @@ private extension PanModalPresentationController {
         let radius = presentable?.cornerRadius ?? 0
 
         if radius == 0 {
-            //In case removing the radius
+            // In case removing the radius
             view.layer.cornerRadius = 0
             view.layer.masksToBounds = false
             return

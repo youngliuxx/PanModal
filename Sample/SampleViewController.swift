@@ -75,7 +75,6 @@ private extension SampleViewController {
         case stacked
         case navController
 
-
         var presentable: RowPresentable {
             switch self {
             case .basic: return Basic()
@@ -98,7 +97,7 @@ private extension SampleViewController {
             let string: String = "Full Screen"
             let rowVC: PanModalPresentable.LayoutType = FullScreenNavController()
         }
-      
+
         struct TableView: RowPresentable {
             let string: String = "Table View"
             let rowVC: PanModalPresentable.LayoutType = TableViewController()
