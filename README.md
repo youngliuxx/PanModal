@@ -1,3 +1,14 @@
+This fork contains some improvements of the original library, including:
+
+```
+- Borders are setup using UIKit layer options, masked layer is only applied on iOS 12.0 and below.
+- Fixed the bug where `contentInset` was not supported.
+- It can close from the max height state now. Use the flag `shouldDismissWhenLongForm`.
+- It can detect if the view was either closed by the user or by the `dismiss(_)` function. Use the functions `panModalWillDismiss(fromGestureRecognizer: Bool)` and `panModalDidDismiss(fromGestureRecognizer: Bool)`.
+- It can draw over the current context. Use the flag `shouldUseAppearanceTransitions`.
+- Applied swiftlint and removed some warnings.
+```
+
 
 ### PanModal is an elegant and highly customizable presentation API for constructing bottom sheet modals on iOS.
 
