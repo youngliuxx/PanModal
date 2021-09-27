@@ -60,11 +60,11 @@ class TableViewController: UITableViewController, PanModalPresentable {
     }
 
     var shouldDismissWhenLongForm: Bool {
-        false
+        true
     }
   
     var shouldUseAppearanceTransitions: Bool {
-        false
+        true
     }
   
     func panModalDidDismiss(fromGestureRecognizer: Bool) {
