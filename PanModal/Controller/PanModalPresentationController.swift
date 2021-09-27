@@ -232,7 +232,7 @@ open class PanModalPresentationController: UIPresentationController {
     }
 
     override public func dismissalTransitionDidEnd(_ completed: Bool) {
-        if completed {
+        if !completed {
             return
         }
         presentable?.panModalDidDismiss(fromGestureRecognizer: dismissFromGestureRecognizer)

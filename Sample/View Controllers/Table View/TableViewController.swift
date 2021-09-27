@@ -56,15 +56,19 @@ class TableViewController: UITableViewController, PanModalPresentable {
     }
 
     var shortFormHeight: PanModalHeight {
-        .maxHeight
+        PanModalHeight.maxHeight
     }
 
     var shouldDismissWhenLongForm: Bool {
-        true
+        false
     }
   
     var shouldUseAppearanceTransitions: Bool {
-        true
+        false
+    }
+  
+    func panModalDidDismiss(fromGestureRecognizer: Bool) {
+        print("panModalDidDismiss from gesture recognizer: \(fromGestureRecognizer)")
     }
   
     func panModalWillDismiss(fromGestureRecognizer: Bool) {
