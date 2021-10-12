@@ -26,7 +26,7 @@ class BasicViewController: UIViewController {
 extension BasicViewController: PanModalPresentable {
   
     var orientation: PanModalOrientation {
-        .horizontal
+        .vertical
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -38,8 +38,7 @@ extension BasicViewController: PanModalPresentable {
     }
 
     var longForm: PanModalHeight {
-      return .contentHeight(100)
-//        return .maxHeightWithTopInset(200)
+        return .maxHeightWithTopInset(200)
     }
 
     var anchorModalToLongForm: Bool {
