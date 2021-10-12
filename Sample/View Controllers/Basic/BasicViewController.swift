@@ -38,7 +38,7 @@ extension BasicViewController: PanModalPresentable {
     }
 
     var longForm: PanModalHeight {
-      return .maxHeight
+      return .contentHeight(100)
 //        return .maxHeightWithTopInset(200)
     }
 
