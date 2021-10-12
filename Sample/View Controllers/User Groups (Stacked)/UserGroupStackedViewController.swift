@@ -19,7 +19,7 @@ class UserGroupStackedViewController: UserGroupViewController {
         presentPanModal(viewController)
     }
 
-    override var shortFormHeight: PanModalHeight {
-        return longFormHeight
+    override var shortForm: PanModalHeight {
+        return longForm
     }
 }

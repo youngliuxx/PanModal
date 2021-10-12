@@ -21,7 +21,7 @@ class PanModalTests: XCTestCase {
 
     class AdjustedMockViewController: UITableViewController, PanModalPresentable {
         var panScrollable: UIScrollView? { return tableView }
-        var shortFormHeight: PanModalHeight { return .contentHeight(300) }
+        var shortForm: PanModalHeight { return .contentHeight(300) }
         var longFormHeight: PanModalHeight { return .maxHeightWithTopInset(50) }
         // for testing purposes - to mimic safe area insets
         var topLayoutOffset: CGFloat { return 20 }
@@ -45,7 +45,7 @@ class PanModalTests: XCTestCase {
         let vc = MockViewController()
 
         XCTAssertEqual(vc.topOffset, 41.0)
-        XCTAssertEqual(vc.shortFormHeight, PanModalHeight.maxHeight)
+        XCTAssertEqual(vc.shortForm, PanModalHeight.maxHeight)
         XCTAssertEqual(vc.longFormHeight, PanModalHeight.maxHeight)
         XCTAssertEqual(vc.springDamping, 0.8)
         XCTAssertEqual(vc.panModalBackgroundColor, UIColor.black.withAlphaComponent(0.7))

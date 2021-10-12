@@ -38,12 +38,12 @@ class AlertViewController: UIViewController, PanModalPresentable {
         return nil
     }
 
-    var shortFormHeight: PanModalHeight {
+    var shortForm: PanModalHeight {
         return .contentHeight(alertViewHeight)
     }
 
-    var longFormHeight: PanModalHeight {
-        return shortFormHeight
+    var longForm: PanModalHeight {
+        return shortForm
     }
 
     var panModalBackgroundColor: UIColor {

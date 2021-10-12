@@ -20,6 +20,13 @@ import UIKit
  ```
  */
 public protocol PanModalPresentable: AnyObject {
+  
+    /**
+     The orientation of the pan modal.
+
+     Default value is vertical.
+     */
+    var orientation: PanModalOrientation { get }
 
     /**
      The scroll view embedded in the view controller.
@@ -27,13 +34,20 @@ public protocol PanModalPresentable: AnyObject {
      and the pan modal container view.
      */
     var panScrollable: UIScrollView? { get }
+  
+    /**
+     The offset between the top of the screen and the top of the pan modal container view.
+
+     Default value is the topLayoutGuide.length + 21.0.
+     */
+    var horizontalOffset: CGFloat { get }
 
     /**
      The offset between the top of the screen and the top of the pan modal container view.
 
      Default value is the topLayoutGuide.length + 21.0.
      */
-    var topOffset: CGFloat { get }
+    var verticalOffset: CGFloat { get }
 
     /**
      The height of the pan modal container view
@@ -43,7 +57,7 @@ public protocol PanModalPresentable: AnyObject {
 
      Default value is the longFormHeight.
      */
-    var shortFormHeight: PanModalHeight { get }
+    var shortForm: PanModalHeight { get }
 
     /**
      The height of the pan modal container view
@@ -53,7 +67,7 @@ public protocol PanModalPresentable: AnyObject {
 
      Default value is .max.
      */
-    var longFormHeight: PanModalHeight { get }
+    var longForm: PanModalHeight { get }
 
     /**
      The corner radius used when `shouldRoundTopCorners` is enabled.

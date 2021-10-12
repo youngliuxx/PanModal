@@ -93,8 +93,8 @@ class UserGroupViewController: UITableViewController, PanModalPresentable {
         return tableView
     }
 
-    var shortFormHeight: PanModalHeight {
-        return isShortFormEnabled ? .contentHeight(300.0) : longFormHeight
+    var shortForm: PanModalHeight {
+        return isShortFormEnabled ? .contentHeight(300.0) : longForm
     }
 
     var scrollIndicatorInsets: UIEdgeInsets {

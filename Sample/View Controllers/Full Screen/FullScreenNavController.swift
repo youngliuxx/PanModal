@@ -22,7 +22,7 @@ extension FullScreenNavController: PanModalPresentable {
         return nil
     }
 
-    var topOffset: CGFloat {
+    var verticalOffset: CGFloat {
         return 0.0
     }
 

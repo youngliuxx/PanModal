@@ -55,7 +55,7 @@ class TableViewController: UITableViewController, PanModalPresentable {
         tableView
     }
 
-    var shortFormHeight: PanModalHeight {
+    var shortForm: PanModalHeight {
         PanModalHeight.maxHeight
     }
 
