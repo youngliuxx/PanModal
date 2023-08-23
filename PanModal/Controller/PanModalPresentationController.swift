@@ -32,7 +32,7 @@ open class PanModalPresentationController: UIPresentationController {
         case shortForm
         case longForm
     }
-
+  
     /**
      Constants
      */
@@ -135,10 +135,13 @@ open class PanModalPresentationController: UIPresentationController {
      the presented view's properties
      */
     private lazy var panContainerView: PanContainerView = {
-        PanContainerView(
+        let view = PanContainerView(
             presentedView: presentedViewController.view,
             frame: containerView?.frame ?? .zero
         )
+        view.backgroundColor = UIColor.red
+        view.isOpaque = false
+        return view
     }()
 
     /**
@@ -196,7 +199,7 @@ open class PanModalPresentationController: UIPresentationController {
 
     override public func containerViewWillLayoutSubviews() {
         super.containerViewWillLayoutSubviews()
-        configureViewLayout()
+//        configureViewLayout()
     }
 
     override public func presentationTransitionWillBegin() {
@@ -207,6 +210,7 @@ open class PanModalPresentationController: UIPresentationController {
 
         layoutBackgroundView(in: containerView)
         layoutPresentedView(in: containerView)
+        adjustPresentedViewFrame()
         configureScrollViewInsets()
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
@@ -265,7 +269,7 @@ open class PanModalPresentationController: UIPresentationController {
                 let self = self,
                 let presentable = self.presentable
                 else { return }
-
+          
             self.adjustPresentedViewFrame()
             if presentable.shouldRoundTopCorners {
                 self.addRoundedCorners(to: self.presentedView)
@@ -399,29 +403,55 @@ private extension PanModalPresentationController {
     /**
      Reduce height of presentedView so that it sits at the bottom of the screen
      */
-    func adjustPresentedViewFrame() {
-
-        guard let frame: CGRect = containerView?.frame else {
-          return
-        }
+  func adjustPresentedViewFrame() {
+    
+      guard let containerViewFrame: CGRect = containerView?.frame else {
+        return
+      }
       
-        let adjustedSize = CGSize(
-            width: frame.size.width - (self.presentable?.orientation == .vertical ? 0.0 : anchoredHorizontalPosition),
-            height: frame.size.height - anchoredVerticalPosition
+      let verticalOffset = presentable?.verticalOffset ?? 0.0
+      
+      let adjustedSize: CGSize
+      if self.presentable?.orientation == .vertical {
+          adjustedSize = CGSize(
+            width: containerViewFrame.size.width,
+            height: containerViewFrame.size.height - self.anchoredVerticalPosition
+          )
+      } else {
+        adjustedSize = CGSize(
+          width: containerViewFrame.size.width - self.anchoredHorizontalPosition,
+          height: containerViewFrame.size.height - verticalOffset
         )
-        let panFrame = panContainerView.frame
-        panContainerView.frame.size = frame.size
+        panContainerView.frame.origin.y = verticalOffset/2.0
+      }
+        
+//        let panFrame: CGRect = panContainerView.frame
+        panContainerView.frame.size = adjustedSize
       
-        if ![shortFormPosition, longFormPosition].contains(panFrame.origin.y) {
-            // if the container is already in the correct position, no need to adjust positioning
-            // (rotations & size changes cause positioning to be out of sync)
-            let yPosition = panFrame.origin.y - panFrame.height + frame.height
-            presentedView.frame.origin.y = max(yPosition, anchoredVerticalPosition)
-            dragIndicatorView.frame.origin.y = presentedView.frame.origin.y - Constants.indicatorOffset
+        if self.presentable?.orientation == .vertical {
+            if ![shortFormPosition, longFormPosition].contains(panContainerView.frame.origin.y) {
+                // if the container is already in the correct position, no need to adjust positioning
+                // (rotations & size changes cause positioning to be out of sync)
+                let yPosition = panContainerView.frame.origin.y - panContainerView.frame.height + containerViewFrame.height
+                presentedView.frame.origin.y = max(yPosition, anchoredVerticalPosition)
+                dragIndicatorView.frame.origin.y = presentedView.frame.origin.y - Constants.indicatorOffset
+            }
+        } else {
+            if ![shortFormPosition, longFormPosition].contains(panContainerView.frame.origin.x) {
+                // if the container is already in the correct position, no need to adjust positioning
+                // (rotations & size changes cause positioning to be out of sync)
+                let xPosition = panContainerView.frame.origin.x - panContainerView.frame.width + containerViewFrame.width
+                presentedView.frame.origin.x = max(xPosition, anchoredHorizontalPosition)
+                dragIndicatorView.frame.origin.x = presentedView.frame.origin.x - Constants.indicatorOffset
+            }
         }
-        panContainerView.frame.origin.x = frame.origin.x
-        panContainerView.frame.origin.y = frame.origin.y
-        presentedViewController.view.frame = CGRect(origin: .zero, size: adjustedSize)
+//        panContainerView.frame.origin.x = containerViewFrame.origin.x
+//        panContainerView.frame.origin.y = containerViewFrame.origin.y
+        presentedViewController.view.frame = CGRect(
+          origin: .zero,
+          size: panContainerView.frame.size
+        )
+        presentedViewController.view.layoutIfNeeded()
       
     }
 
@@ -431,8 +461,8 @@ private extension PanModalPresentationController {
      during initial view presentation in longForm (when view bounces)
      */
     func adjustPanContainerBackgroundColor() {
-        panContainerView.backgroundColor = presentedViewController.view.backgroundColor
-            ?? presentable?.panScrollable?.backgroundColor
+//        panContainerView.backgroundColor = presentedViewController.view.backgroundColor
+//            ?? presentable?.panScrollable?.backgroundColor
     }
 
     /**
@@ -1041,7 +1071,8 @@ private extension PanModalPresentationController {
           .layerMaxXMaxYCorner,
           .layerMaxXMinYCorner,
           .layerMinXMaxYCorner,
-          .layerMinXMinYCorner]
+          .layerMinXMinYCorner
+        ]
         return corners[corner.rawValue]
     }
 

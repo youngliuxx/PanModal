@@ -12,25 +12,32 @@ class BasicViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.isOpaque = true
-        view.backgroundColor = #colorLiteral(red: 0.1019607843, green: 0.1137254902, blue: 0.1294117647, alpha: 1)
-        let label = UILabel(frame: view.frame)
+        view.isOpaque = false
+        view.backgroundColor = UIColor.clear
+        let label = UILabel(frame: CGRect.zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.isOpaque = true
         label.text = "Text"
         label.textColor = UIColor.white
         label.textAlignment = .center
         view.addSubview(label)
+      view.addConstraint(NSLayoutConstraint(item: label, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1.0, constant: 0.0))
+      view.addConstraint(NSLayoutConstraint(item: label, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1.0, constant: 0.0))
+      view.addConstraint(NSLayoutConstraint(item: label, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1.0, constant: 0.0))
+      view.addConstraint(NSLayoutConstraint(item: label, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0.0))
+      view.updateConstraintsIfNeeded()
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+  
 }
 
 extension BasicViewController: PanModalPresentable {
   
     var orientation: PanModalOrientation {
-        .vertical
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .horizontal
     }
 
     var panScrollable: UIScrollView? {
@@ -42,6 +49,11 @@ extension BasicViewController: PanModalPresentable {
     }
 
     var anchorModalToLongForm: Bool {
-        return false
+        return true
     }
+  
+    var verticalOffset: CGFloat {
+      return 40.0
+    }
+  
 }
