@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FullScreenNavController: UINavigationController {
+final class FullScreenNavController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ extension FullScreenNavController: PanModalPresentable {
         return nil
     }
 
-    var topOffset: CGFloat {
+    var verticalOffset: CGFloat {
         return 0.0
     }
 
@@ -47,7 +47,7 @@ extension FullScreenNavController: PanModalPresentable {
     }
 }
 
-private class FullScreenViewController: UIViewController {
+private final class FullScreenViewController: UIViewController {
 
     let textLabel: UILabel = {
         let label = UILabel()

@@ -13,22 +13,33 @@ import UIKit
  */
 public extension PanModalPresentable where Self: UIViewController {
 
-    var topOffset: CGFloat {
+    var orientation: PanModalOrientation {
+        PanModalOrientation.vertical
+    }
+
+    var horizontalOffset: CGFloat {
+        leadingLayoutOffset + 16.0
+    }
+
+    var verticalOffset: CGFloat {
         topLayoutOffset + 21.0
     }
 
-    var shortFormHeight: PanModalHeight {
-        longFormHeight
+    var shortForm: PanModalHeight {
+        longForm
     }
 
-    var longFormHeight: PanModalHeight {
-
-        guard let scrollView = panScrollable
-            else { return .maxHeight }
-
+    var longForm: PanModalHeight {
+        guard let scrollView = panScrollable else {
+              return .maxHeight
+        }
         // called once during presentation and stored
         scrollView.layoutIfNeeded()
-        return .contentHeight(scrollView.contentSize.height)
+        return .contentHeight(
+            self.orientation == .vertical
+                ? scrollView.contentSize.height
+                : scrollView.contentSize.width
+        )
     }
 
     var cornerRadius: CGFloat {
@@ -65,10 +76,9 @@ public extension PanModalPresentable where Self: UIViewController {
     }
 
     var allowsExtendedPanScrolling: Bool {
-
-        guard let scrollView = panScrollable
-            else { return false }
-
+        guard let scrollView = panScrollable else {
+            return false
+        }
         scrollView.layoutIfNeeded()
         return scrollView.contentSize.height > (scrollView.frame.height - bottomLayoutOffset)
     }
@@ -100,9 +110,9 @@ public extension PanModalPresentable where Self: UIViewController {
     var shouldDismissWhenLongForm: Bool {
         false
     }
-  
+
     var shouldUseAppearanceTransitions: Bool {
-      false
+        false
     }
 
     func shouldRespond(to panModalGestureRecognizer: UIPanGestureRecognizer) -> Bool {

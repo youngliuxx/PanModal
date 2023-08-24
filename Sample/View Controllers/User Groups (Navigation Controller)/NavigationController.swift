@@ -42,12 +42,12 @@ class NavigationController: UINavigationController, PanModalPresentable {
         return (topViewController as? PanModalPresentable)?.panScrollable
     }
 
-    var longFormHeight: PanModalHeight {
+    var longForm: PanModalHeight {
         return .maxHeight
     }
 
-    var shortFormHeight: PanModalHeight {
-        return longFormHeight
+    var shortForm: PanModalHeight {
+        return longForm
     }
 }
 

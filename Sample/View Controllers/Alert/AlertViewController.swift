@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlertViewController: UIViewController, PanModalPresentable {
+final class AlertViewController: UIViewController, PanModalPresentable {
 
     private let alertViewHeight: CGFloat = 68
 
@@ -38,12 +38,12 @@ class AlertViewController: UIViewController, PanModalPresentable {
         return nil
     }
 
-    var shortFormHeight: PanModalHeight {
+    var shortForm: PanModalHeight {
         return .contentHeight(alertViewHeight)
     }
 
-    var longFormHeight: PanModalHeight {
-        return shortFormHeight
+    var longForm: PanModalHeight {
+        return shortForm
     }
 
     var panModalBackgroundColor: UIColor {

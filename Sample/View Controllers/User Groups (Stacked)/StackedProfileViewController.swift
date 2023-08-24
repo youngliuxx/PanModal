@@ -102,7 +102,7 @@ class StackedProfileViewController: UIViewController, PanModalPresentable {
         return nil
     }
 
-    var longFormHeight: PanModalHeight {
+    var longForm: PanModalHeight {
         return .intrinsicHeight
     }
 
