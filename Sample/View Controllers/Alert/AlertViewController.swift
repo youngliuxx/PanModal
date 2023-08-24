@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlertViewController: UIViewController, PanModalPresentable {
+final class AlertViewController: UIViewController, PanModalPresentable {
 
     private let alertViewHeight: CGFloat = 68
 

@@ -20,7 +20,7 @@ import UIKit
  ```
  */
 public protocol PanModalPresentable: AnyObject {
-  
+
     /**
      The orientation of the pan modal.
 
@@ -34,7 +34,7 @@ public protocol PanModalPresentable: AnyObject {
      and the pan modal container view.
      */
     var panScrollable: UIScrollView? { get }
-  
+
     /**
      The offset between the top of the screen and the top of the pan modal container view.
 
@@ -193,7 +193,7 @@ public protocol PanModalPresentable: AnyObject {
      Default value is false.
     */
     var shouldDismissWhenLongForm: Bool { get }
-  
+
     /**
      A flag to determine if the transition should trigger the parent
      view controller lifecycle.

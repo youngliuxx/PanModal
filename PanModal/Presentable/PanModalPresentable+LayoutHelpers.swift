@@ -21,7 +21,7 @@ extension PanModalPresentable where Self: UIViewController {
     var presentedVC: PanModalPresentationController? {
         presentationController as? PanModalPresentationController
     }
-  
+
     /**
      Length of the top layout guide of the presenting view controller.
      Gives us the safe area inset from the top.
@@ -107,7 +107,7 @@ extension PanModalPresentable where Self: UIViewController {
         }
         return container.bounds.size.height - verticalOffset
     }
-  
+
     /**
      Use the container view for relative positioning as this view's frame
      is adjusted in PanModalPresentationController
@@ -143,7 +143,7 @@ extension PanModalPresentable where Self: UIViewController {
             return bottomYPos - (intrinsicHeight + bottomLayoutOffset)
         }
     }
-  
+
     func trailingMargin(from: PanModalHeight) -> CGFloat {
         switch from {
         case .maxHeight:

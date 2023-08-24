@@ -16,8 +16,8 @@ import UIKit
 public enum PanModalOrientation: Equatable {
 
     case vertical
-  
+
     case horizontal
-  
+
 }
 #endif

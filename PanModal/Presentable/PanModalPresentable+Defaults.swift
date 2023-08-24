@@ -12,11 +12,11 @@ import UIKit
  Default values for the PanModalPresentable.
  */
 public extension PanModalPresentable where Self: UIViewController {
-  
+
     var orientation: PanModalOrientation {
         PanModalOrientation.vertical
     }
-  
+
     var horizontalOffset: CGFloat {
         leadingLayoutOffset + 16.0
     }
@@ -110,7 +110,7 @@ public extension PanModalPresentable where Self: UIViewController {
     var shouldDismissWhenLongForm: Bool {
         false
     }
-  
+
     var shouldUseAppearanceTransitions: Bool {
         false
     }
