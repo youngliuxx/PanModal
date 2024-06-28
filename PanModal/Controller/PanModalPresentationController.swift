@@ -139,7 +139,7 @@ open class PanModalPresentationController: UIPresentationController {
             presentedView: presentedViewController.view,
             frame: containerView?.frame ?? .zero
         )
-        view.backgroundColor = UIColor.red
+        view.backgroundColor = UIColor.clear
         view.isOpaque = false
         return view
     }()

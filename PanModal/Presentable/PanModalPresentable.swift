@@ -57,7 +57,7 @@ public protocol PanModalPresentable: AnyObject {
 
      Default value is the longFormHeight.
      */
-    var shortForm: PanModalHeight { get }
+    var shortFormHeight: PanModalHeight { get }
 
     /**
      The height of the pan modal container view
@@ -67,7 +67,7 @@ public protocol PanModalPresentable: AnyObject {
 
      Default value is .max.
      */
-    var longForm: PanModalHeight { get }
+    var longFormHeight: PanModalHeight { get }
 
     /**
      The corner radius used when `shouldRoundTopCorners` is enabled.
