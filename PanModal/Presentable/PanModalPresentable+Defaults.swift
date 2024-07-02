@@ -18,7 +18,7 @@ public extension PanModalPresentable where Self: UIViewController {
     }
 
     var horizontalOffset: CGFloat {
-        leadingLayoutOffset + 16.0
+        leadingLayoutOffset
     }
 
     var verticalOffset: CGFloat {
